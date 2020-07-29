@@ -2,6 +2,8 @@
 
 In this project a simple laser projector was developed using an Arduino uno. The projector works in 3 different modes, automatic mode, user-defined path mode and pattern selection mode. The goal of the project was to exploit a digital logic framework in order to make the projector work by at least showing some geometric patterns or draw simple user-defined vector graphics. 
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/TtwKWuPB-LY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ### Components 
 List of Components
 - Arduino uno
