@@ -406,4 +406,3 @@ void onoffButton(){
 }
 ```
 </details>
-### Device pictures
