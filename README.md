@@ -1,10 +1,23 @@
-## Welcome to GitHub Pages
+## Laser Projector with Arduino 
 
-You can use the [editor on GitHub](https://github.com/ez77/LaserProjector/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+In this project a simple laser projector was developed using an Arduino uno. The projector works in 3 different modes, automatic mode, user-defined path mode and pattern selection mode. The goal of the project was to exploit a digital logic framework in order to make the projector work by at least showing some geometric patterns or draw simple user-defined vector graphics. 
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Components 
+List of Components
+- Arduino uno
+- 2 stepper motors (28BYJ-48)
+-	Laser diode (650 nm, 5V)
+-	2 H-bridge modules (L298N, ULN2003)
+-	Protoboard or pcb protoboard, etc. 
+-	Cables
+-	6 push buttons
+-	5 resistances (100kΩ, 10kΩ, 5kΩ, 2kΩ, 1kΩ) 
+-	2 mirrors (approx. 1cm^2 each)
+-	USB cable (type B) or adapter for Arduino 
 
-### Markdown
+### Circuit Schematic
+
+![CircuitSchematic](CircuitSchematic.png)
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
