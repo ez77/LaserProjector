@@ -76,6 +76,9 @@ The third mode is pattern selection, in this mode the laser projector will draw 
 **Setup**
 
 This is the initial part of the code where the definitions of the variables used is made and the Arduino pins are defined. In the setup functions the input and output variables are assigned. In particular, the library Stepper.h is used to simplify the manipulations of the stepper motors. 
+<details>
+  <summary>Code</summary>
+  
 ```cpp
 #include<Stepper.h>
 
@@ -128,10 +131,14 @@ void setup() {
   Serial.begin(9600);               
 }
 ```
+</details>
 
 **Loop**
 
 In this function the Arduino executes the modes selected by the user. In the first part the Arduino waits for the start button to change its state to 1 (button pressed), after that enters the Mode selection function, in the mode selection function the actual mode is defined so the Arduino starts the sequence corresponding to the mode selected. After the Arduino finishes the execution of the mode selected the start button can be pressed to turn off the system or wait and select another mode. 
+<details>
+  <summary>Code</summary>
+  
 ```cpp
 void loop() {
   // Turn on reading
@@ -169,10 +176,15 @@ void loop() {
   }
 }
 ```
+</details>
+
 **Mode function**
  
 In this function there are 3 inputs, these inputs are the insert button, up, down buttons and the output will be the actual mode selected (actmode). At the beginning the function enter a cycle that is conditioned on the insert button state, that means if a mode has been inserted by pressing this button then the cycle will end and the actual mode is updated. 
 If the insert button is not pressed then we enter to another cycle that is the mode selection process, this selection process has an actual mode state (actmode) this state can have three values 0, 1, 2 that are in correspondence with the array elements of the variable modes which describes the modes of the Laser projector. So to change between modes we use an analog input that is composed by an array of 4 buttons, by reading the values of the analog input when the buttons are pressed we can discretize the range in four indicating, for this function we will use only the up and down button. The up button defines a “past” state therefore the last mode used so if pressed the system will select the last mode, also a condition is made in this process in order to constraint further movements beyond the zero mode (we will not have negative modes). The down button is similar with the difference that it defines the “next” state or mode. After each mode movement the insert button must be pressed in order to define that mode as the actual mode and exit the cycle. 
+<details>
+  <summary>Code</summary>
+  
 ```cpp
 void Mode(){
     while(selectcount == 0){
@@ -210,10 +222,15 @@ void Mode(){
     }
 }
 ```
+</details>
+
 **Path definition function**
 
 This function is selected in the mode 2 of the laser projector. It has 5 inputs, insert button, up, down, left and right buttons, and the output will be a sequence of instructions to give to the stepper motors in order to draw a path. In order to save the sequence a cycle for is used where every iteration an instruction will be saved, then at the end of the for cycle a sequence (seq[]) will be defined. Another functionality is that a sequence can be defined through the insert button, this can be done after defining an instruction and then pressing insert. 
 The available paths to define a sequence are in the directions up, down, right and left, and are constrained in a 9 point grid with the condition that the starting instruction will be the end instruction, this constrain is defined due to the mechanical limitations of the laser projector (minimum range of movement of the motor in a fast frequency, and size of the mirrors used) and to the starting point of the step motors. 
+<details>
+  <summary>Code</summary>
+  
 ```cpp
 void pathdef(){
   for (int i=0;i<numseq;i++){
@@ -251,9 +268,14 @@ void pathdef(){
   }
 }
 ```
+</details>
+
 **Routine function**
 
 This function executes the sequence defined on pathdef(). It is done by assigning the stepper motors the number of steps to make, in our case the minimum step with visible results is defined by the variable revstep. Also to achieve this in a more simplified way we used the stepper library that includes a defined method for defining the steps of a [stepper motor](https://en.wikipedia.org/wiki/Stepper_motor). In our case we use a configuration for our stepper motors in a “wave drive” (activating one coil of the motor at a time) mode in order to have more speed. Also we define two variables, counthorz and countvert to know how many instructions on the 9 point grid are taken (this is only for scope purposes).
+<details>
+  <summary>Code</summary>
+  
 ```cpp
 void Routine(){
   for (int i = 0; i<=numseq-1;i++){
@@ -277,10 +299,15 @@ void Routine(){
   }
 }
 ```
+</details>
+
 **Pattern selection function**
 
 This function executes the mode 3 of the laser projector. This function have as inputs the insert button and the up, down, left and right buttons and have as output a sequence of 3 selected patterns. 
 It is done by first entering a for cycle in order to have a control over the predefined patterns order,  and with the pattern array initiated in zeros and also the letter variable (this variable selects the pattern since for this project the predefined patterns are letters it is called letter). Since the variables are initiated at zero we enter the while cycle, in the while cycle we call another function alphabet(letter) that will project the patterns already predefined in the laser projector. Then to change between patterns the variable patselectval will read the input of the buttons up, down, left, right, the left and right button will change between patterns and the variable down will exit this mode, for saving the pattern the button up must be pressed and then for the final sequence the button insert must be pressed, this way the projector will draw the sequence of patterns saved. 
+<details>
+  <summary>Code</summary>
+  
 ```cpp
 void patternselect(){
   for (int i=0;i<numpat;i++){
@@ -322,9 +349,14 @@ void patternselect(){
   }
 }
 ```
+</details>
+
 **Alphabet function**
 
 This function is the function used to select preconfigured patterns, in our case we use letters, these functions (letterA(), etc) are sequence of instructions for the stepper motors. This function has as input the variable letter whose vale is defined inside the function patternselect().
+<details>
+  <summary>Code</summary>
+  
 ```cpp
 void alphabet(int letter){
   switch (letter){
@@ -348,9 +380,14 @@ void alphabet(int letter){
   }
 }
 ```
+</details>
+
 **OnOff function**
 
 This function is used to define the state of the start button after being pressed. 
+<details>
+  <summary>Code</summary>
+  
 ```cpp
 void onoffButton(){
   if (startbutton == HIGH && state == 0){
@@ -368,4 +405,5 @@ void onoffButton(){
   }
 }
 ```
+</details>
 ### Device pictures
